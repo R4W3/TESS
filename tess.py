@@ -29,9 +29,9 @@ def login():
 
         if account:
             session["user"] = username
-            return redirect("/home", code=302)
+            return redirect("/", code=302)
         else:
-            return redirect("/")
+            return redirect("/login")
 
     return render_template("page_login.html")
 
