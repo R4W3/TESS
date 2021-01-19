@@ -3,10 +3,12 @@ import mysql.connector
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def welcome():
 
     return render_template("setup_welcome.html")
+
 
 @app.route("/setup", methods=['GET', 'POST'])
 def setup_1():
@@ -28,13 +30,14 @@ def setup_1():
                 user=username,
                 password=password
             )
-            #mycursor = mydb.cursor()
-            #mycursor.execute("CREATE DATABASE tess")
+            mycursor = mydb.cursor()
+            mycursor.execute("CREATE DATABASE tess")
             return redirect('/setup2')
         else:
             return redirect('/setup')
 
     return render_template("setup_1.html")
+
 
 @app.route("/setup2", methods=['GET', 'POST'])
 def setup2():
@@ -54,8 +57,15 @@ def setup2():
             database="tess"
         )
         mycursor = mydb.cursor()
-        mycursor.execute("CREATE TABLE database (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), pass VARCHAR(255))")
-        sql = "INSERT INTO database (user, pass) VALUES (%s, %s)"
+        mycursor.execute("CREATE TABLE userdata (user VARCHAR(255), pass VARCHAR(255))")
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        sql = "INSERT INTO userdata (user, pass) VALUES (%s, %s)"
         val = (username, password)
         mycursor.execute(sql, val)
         mydb.commit()
@@ -64,10 +74,12 @@ def setup2():
 
     return render_template("setup_2.html")
 
+
 @app.route("/setup3")
 def setup3():
 
     return render_template("setup_3.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

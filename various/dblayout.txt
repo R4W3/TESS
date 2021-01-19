@@ -1,5 +1,5 @@
 tess
-    database
+    userdata
         user
         pass
         id PRIMARY KEY
