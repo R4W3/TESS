@@ -16,10 +16,31 @@
 <div class="container center">
     <br>
     <br>
-    <h1 class="red-text">Welcome to TESS</h1>
-    <p>Please check the requirements here before you start the setup process.</p>
+    <h1 class="red-text">Database Setup</h1>
+    <p>Here we will establish the connection to your MySQL Database.</p>
     <br>
-    <a href="/setup" class="waves-effect waves-light btn-large">GO!</a>
+    <div class="row">
+         <form class="col s12" action="/setup" method="POST">
+             <div class="row">
+                <div class="input-field col s6">
+                    <input id="username" name="username" type="text" class="validate">
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="password" name="password" type="text" class="validate">
+                    <label for="password">Password</label>
+                </div>
+             </div>
+             <div class="row">
+                <div class="input-field col s6">
+                    <input id="host" name="host" type="text" class="validate">
+                    <label for="host">Host</label>
+                </div>
+            </div>
+              <button class="btn waves-effect waves-light" type="submit">Submit</button>
+         </form>
+    </div>
+    <br>
 </div>
 
 </body>
