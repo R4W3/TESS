@@ -7,6 +7,10 @@ def welcome():
 
     return render_template("setup_welcome.html")
 
+@app.route("/setup")
+def setup_1():
+
+    return render_template("setup_1.html")
 
 if __name__ == "__main__": #finally run the fucker
     app.run(debug=True)
