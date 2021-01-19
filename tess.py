@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, request, session
 import mysql.connector
+from lang import en
 
+l = en
 
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
@@ -33,7 +35,7 @@ def login():
         else:
             return redirect("/login")
 
-    return render_template("page_login.html")
+    return render_template("page_login.html", l=l)
 
 
 @app.route("/logout")
@@ -49,7 +51,7 @@ def index():
     else:
         return redirect("/login", code=302)
 
-    return render_template("page_index.html")
+    return render_template("page_index.html", l=l)
 
 
 if __name__ == "__main__":
