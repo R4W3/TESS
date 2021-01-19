@@ -50,8 +50,9 @@ def index():
         pass
     else:
         return redirect("/login", code=302)
+    username = session["user"]
 
-    return render_template("page_index.html", l=l)
+    return render_template("page_index.html", l=l, username=username)
 
 
 if __name__ == "__main__":
