@@ -20,6 +20,9 @@ def setup_1():
             password=password,
         )
         if mydb:
+            f = open("various/db.txt", "w")
+            f.write(username+"\n"+password+"\n"+host)
+            f.close()
             return redirect('/setup2')
         else:
             return redirect('/setup')

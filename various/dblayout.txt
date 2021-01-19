@@ -1,0 +1,6 @@
+tess
+    database
+        user
+        pass
+        id PRIMARY KEY
+

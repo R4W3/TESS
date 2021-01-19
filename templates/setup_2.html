@@ -1,10 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
 </head>
+
 <body>
+<nav>
+    <div class="nav-wrapper red">
+        <a href="" class="brand-logo center">TESS</a>
+    </div>
+</nav>
+<div class="container center">
+    <br>
+    <br>
+    <h1 class="red-text">Database Setup</h1>
+    <p>Here we will establish the connection to your MySQL Database.</p>
+    <br>
+    <div class="row">
+         <form class="col s12" action="/setup" method="POST">
+             <div class="row">
+                <div class="input-field col s6">
+                    <input id="username" name="username" type="text" class="validate">
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="password" name="password" type="text" class="validate">
+                    <label for="password">Password</label>
+                </div>
+             </div>
+             <div class="row">
+                <div class="input-field col s6">
+                    <input id="host" name="host" type="text" class="validate">
+                    <label for="host">Host</label>
+                </div>
+            </div>
+              <button class="btn waves-effect waves-light" type="submit">Submit</button>
+         </form>
+    </div>
+    <br>
+</div>
 
 </body>
 </html>
