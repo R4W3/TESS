@@ -8,15 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-</head>
-<body {% block body %}{% endblock %}>
-<div class="navbar">
     <script>
         $(document).ready(function(){
-        $('.sidenav').sidenav();
         $('.fixed-action-btn').floatingActionButton();
-        $('select').formSelect();
         function(){
         $('#button').click(
             function(){
@@ -42,22 +36,47 @@
 
     }
         });
+
+
     </script>
+    <script>
+        $(document).ready(function(){
+        $('select').formSelect();
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+        $('.sidenav').sidenav();
+        });
+    </script>
+</head>
+<body {% block body %}{% endblock %}>
+<div class="navbar">
+
     <nav class="grey darken-3 ">
     <div class="nav-wrapper container">
-      <a href="/" class="brand-logo red-text text-accent-3">TESS</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-          <li><a href="/settings">{{ l.1 }}</a></li>
-          <li><a href="/logout">{{ l.2 }}</a></li>
-      </ul>
+        <a href="/" class="brand-logo red-text text-accent-3">TESS</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/settings">{{ l.1 }}</a></li>
+            <li><a href="/logout">{{ l.2 }}</a></li>
+        </ul>
     </div>
     </nav>
+    <ul class="sidenav sidenav-fixed grey darken-2" id="mobile-demo">
+        <li><div class="user-view">
+            <div class="background grey darken-1">
 
-  <ul class="sidenav" id="mobile-demo">
-      <li><a class="red-text text-accent-3" href="/settings">{{ l.1 }}</a></li>
-      <li><a class="red-text text-accent-3" href="/logout">{{ l.2 }}</a></li>
-  </ul>
+            </div>
+            <a href="#user"><img class="circle" src="static/images/sample_bg.jpg"></a>
+            <a href="#name"><span class="white-text name">John Doe</span></a>
+            <a href="#email"><span class="white-text email">@{{ username }}</span></a>
+        </div>
+        </li>
+        <li><a class="white-text" href="/app_movies"><i class="white-text material-icons">movie</i>{{ l.12 }}</a></li>
+        <li><a class="white-text" href="/settings"><i class="white-text material-icons">settings</i>{{ l.1 }}</a></li>
+        <li><a class="white-text" href="/logout"><i class="white-text material-icons">lock_outline</i>{{ l.2 }}</a></li>
+    </ul>
 </div>
 {% block content %}{% endblock %}
 

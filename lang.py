@@ -9,5 +9,6 @@ en = {
     8: 'Weather',
     9: 'Your Lists',
     10: 'Add to List',
-    11: 'Weather in'
+    11: 'Weather in',
+    12: 'Your Movies',
 }
