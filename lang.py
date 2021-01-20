@@ -11,4 +11,5 @@ en = {
     10: 'Add to List',
     11: 'Weather in',
     12: 'Your Movies',
+    13: 'Calendar'
 }

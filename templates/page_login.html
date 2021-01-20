@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
 </head>
 
-<body>
+<body class="grey darken-4">
 <nav>
     <div class="nav-wrapper red">
         <a href="" class="brand-logo center">TESS</a>
@@ -17,7 +17,7 @@
     <br>
     <br>
     <h1 class="red-text">Admin User</h1>
-    <p>Please log in.</p>
+    <p class="white-text">Please log in.</p>
     <br>
     <div class="row">
          <form class="col s12" action="/login" method="POST">
@@ -31,7 +31,7 @@
                     <label for="password">Password</label>
                 </div>
              </div>
-              <button class="btn waves-effect waves-light" type="submit">Submit</button>
+              <button class="btn red accent-4" type="submit">Submit</button>
          </form>
     </div>
     <br>
