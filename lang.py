@@ -8,5 +8,6 @@ en = {
     7: 'Your Home',
     8: 'Weather',
     9: 'Your Lists',
-    10: 'Add to List'
+    10: 'Add to List',
+    11: 'Weather in'
 }

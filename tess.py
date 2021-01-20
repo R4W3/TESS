@@ -2,7 +2,9 @@ from flask import Flask, render_template, redirect, request, session
 import mysql.connector
 from lang import en
 
+
 l = en
+
 
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
@@ -64,6 +66,18 @@ def app_todo():
     username = session["user"]
 
     return render_template("app_todo.html", l=l, username=username)
+
+
+@app.route("/app_weather")
+def app_weather():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+
+    return render_template("app_weather.html", l=l, username=username)
+
 
 
 if __name__ == "__main__":
