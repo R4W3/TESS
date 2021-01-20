@@ -1,0 +1,24 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}ToDo{% endblock %}
+{% block body %}
+class="grey darken-4"
+{% endblock %}
+{% block content %}
+<br>
+<div class="container grey darken-3">
+    <div class="container red-text text-accent-3">
+        <br>
+        <h4>{{ l.13 }}</h4>
+        <br>
+        <ul class="collection">
+        {% for item in events %}
+            <li class="collection-item">
+            {{ item.summary }}<br>
+                {{ item.start }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
