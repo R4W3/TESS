@@ -4,6 +4,23 @@ import mysql.connector
 app = Flask(__name__)
 
 
+def create_todo_db():
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    print(db_host, db_pass, db_user)
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("CREATE TABLE todo (item VARCHAR(255), state VARCHAR(255))")
+
+
 @app.route("/")
 def welcome():
 
@@ -77,7 +94,7 @@ def setup2():
 
 @app.route("/setup3")
 def setup3():
-
+    create_todo_db()
     return render_template("setup_3.html")
 
 

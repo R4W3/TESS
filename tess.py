@@ -55,5 +55,44 @@ def index():
     return render_template("page_index.html", l=l, username=username)
 
 
+@app.route("/app_todo", methods=['GET', 'POST'])
+def app_todo():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+
+    return render_template("app_todo.html", l=l, username=username)
+
+
+@app.route("/app_todo_add", methods=['GET', 'POST'])
+def app_todo_add():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    todolists = []
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("SHOW Tables")
+    for (table_name,) in mycursor:
+        if "todo" in table_name:
+            todolists.append(table_name)
+
+    return render_template("app_todo_add.html", l=l, username=username, todolists=todolists)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -15,11 +15,37 @@
     <script>
         $(document).ready(function(){
         $('.sidenav').sidenav();
+        $('.fixed-action-btn').floatingActionButton();
+        $('select').formSelect();
+        function(){
+        $('#button').click(
+            function(){
+                var toAdd = $('input[name=ListItem]').val();
+                 $('ol').append('<li>' + toAdd + '</li>');
+            });
+
+       $("input[name=ListItem]").keyup(function(event){
+          if(event.keyCode == 13){
+            $("#button").click();
+          }
+      });
+
+      $(document).on('dblclick','li', function(){
+        $(this).toggleClass('strike').fadeOut('slow');
+      });
+
+      $('input').focus(function() {
+        $(this).val('');
+      });
+
+      $('ol').sortable();
+
+    }
         });
     </script>
     <nav class="grey darken-3 ">
     <div class="nav-wrapper container">
-      <a href="#!" class="brand-logo red-text text-accent-3">TESS</a>
+      <a href="/" class="brand-logo red-text text-accent-3">TESS</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
           <li><a href="/settings">{{ l.1 }}</a></li>

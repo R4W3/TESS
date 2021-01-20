@@ -8,4 +8,7 @@ mydb = mysql.connector.connect(
     database="tess"
 )
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE userdata (user VARCHAR(255), pass VARCHAR(255))")
+mycursor.execute("SHOW Tables")
+for (table_name,) in mycursor:
+    if "todo" in table_name:
+        print(table_name)
