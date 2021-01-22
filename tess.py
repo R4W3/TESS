@@ -16,6 +16,11 @@ app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
 
 
+@app.route('/service-worker.js')
+def sw():
+    return app.send_static_file('service-worker.js')
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

@@ -3,6 +3,7 @@
 <head>{% block head %}{% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <meta charset="UTF-8">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <title>{% block title %}{% endblock %} - Tess</title>
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
@@ -11,33 +12,7 @@
     <script>
         $(document).ready(function(){
         $('.fixed-action-btn').floatingActionButton();
-        function(){
-        $('#button').click(
-            function(){
-                var toAdd = $('input[name=ListItem]').val();
-                 $('ol').append('<li>' + toAdd + '</li>');
-            });
-
-       $("input[name=ListItem]").keyup(function(event){
-          if(event.keyCode == 13){
-            $("#button").click();
-          }
-      });
-
-      $(document).on('dblclick','li', function(){
-        $(this).toggleClass('strike').fadeOut('slow');
-      });
-
-      $('input').focus(function() {
-        $(this).val('');
-      });
-
-      $('ol').sortable();
-
-    }
         });
-
-
     </script>
     <script>
         $(document).ready(function(){
@@ -75,6 +50,8 @@
         </li>
         <li><a class="white-text" href="/app_calendar"><i class="white-text material-icons">calendar_today</i>{{ l.13 }}</a></li>
         <li><a class="white-text" href="/app_movies"><i class="white-text material-icons">movie</i>{{ l.12 }}</a></li>
+        <li><a class="white-text" href="#" id="installButton" hidden><i class="white-text material-icons">shop</i>{{ l.14 }}</a></li>
+        <li><button class="btn" id='push-btn'>Enable Push Notifications</button></li>
         <li><a class="white-text" href="/settings"><i class="white-text material-icons">settings</i>{{ l.1 }}</a></li>
         <li><a class="white-text" href="/logout"><i class="white-text material-icons">lock_outline</i>{{ l.2 }}</a></li>
     </ul>
@@ -83,5 +60,7 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='install.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/standard.js') }}"></script>
 </body>
 </html>
