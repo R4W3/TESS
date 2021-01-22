@@ -14,4 +14,5 @@ en = {
     13: 'Calendar',
     14: 'Install App',
     15: 'Enable Notifications',
+    16: 'User',
 }
