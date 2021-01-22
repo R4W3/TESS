@@ -15,4 +15,7 @@ en = {
     14: 'Install App',
     15: 'Enable Notifications',
     16: 'User',
+    17: 'Username',
+    18: 'Password',
+    19: 'Home'
 }
