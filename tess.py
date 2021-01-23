@@ -58,6 +58,24 @@ def index():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+
     ua = str(request.user_agent)
     print(ua)
     if "iPhone" and "OS 14" in ua:
@@ -67,8 +85,7 @@ def index():
         h1_size = "calc(1.375rem + 1.5vw)"
         nav = "nav_desktop.html"
 
-    darkmode = "1"
-    if darkmode == "1":
+    if theme == "dark":
         bg_color = "#020202"
         element_color = "#4F4B58"
         text_color = "#C5CBD3"
@@ -100,7 +117,6 @@ def weather():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    print(db_host, db_pass, db_user)
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -129,6 +145,35 @@ def weather():
         temp = "n"
 
     return render_template("weather.php", l=l, temp=temp)
+
+@app.route("/settings", methods=['POST'])
+def settings():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    if request.method == 'POST':
+        req = request.form
+        print(req)
+        new_theme = req.get("theme")
+        f = open("various/db.txt", "r")
+        db_user = f.readline().rstrip("\n")
+        db_pass = f.readline().rstrip("\n")
+        db_host = f.readline().rstrip("\n")
+        f.close()
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        sql = "UPDATE "+username+" SET value = '"+new_theme+"' WHERE setting = 'theme'"
+        mycursor.execute(sql)
+        mydb.commit()
+        print(mycursor.rowcount, "record(s) affected")
+        return redirect("/")
 
 
 if __name__ == "__main__":

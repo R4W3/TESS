@@ -82,7 +82,7 @@ style="background-color: {{ bg_color }} ;"
             </div>
         </div>
         <br>
-        <form>
+        <form action="/settings" method="POST">
             <div class="row">
                 <div class="col">
                     <div class="card" style="background-color: {{ element_color }};">
@@ -114,7 +114,7 @@ style="background-color: {{ bg_color }} ;"
                     <div class="card" style="background-color: {{ element_color }};">
                         <div class="card-body" style="color: {{ text_color }};">
                             <div class="row">
-                            <div class="col-2">
+                            <div class="col-md-auto">
                                 <h5>{{ l.23 }}</h5>
                                 <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
                                     <button class="btn" style="background-color: #020202; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
@@ -123,7 +123,7 @@ style="background-color: {{ bg_color }} ;"
                                     <button class="btn" style="background-color: #16db65; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
                                 </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-md-auto">
                                 <h5>{{ l.24 }}</h5>
                                 <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
                                     <button class="btn" style="background-color: #C5CBD3; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
@@ -135,11 +135,14 @@ style="background-color: {{ bg_color }} ;"
                             </div>
                             <br>
 
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" name="theme" aria-label="Default select example">
                                 <option selected>{{ l.25 }}</option>
-                                <option value="1">{{ l.23 }}</option>
-                                <option value="2">{{ l.24 }}</option>
+                                <option value="dark">{{ l.23 }}</option>
+                                <option value="light">{{ l.24 }}</option>
                             </select>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <br>
                         </div>
                     </div>
                 </div>
