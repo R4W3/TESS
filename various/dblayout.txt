@@ -9,6 +9,7 @@ tess
 
         theme->dark
         owm-api->key
+        role->admin
 
 
 

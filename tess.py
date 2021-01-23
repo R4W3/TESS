@@ -75,6 +75,18 @@ def index():
     myresult = mycursor.fetchall()
     for x in myresult:
         theme = x[1]
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='role'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        role = x[1]
 
     ua = str(request.user_agent)
     print(ua)
@@ -102,7 +114,7 @@ def index():
         accent2_color = '#16db65'
 
 
-    return render_template("page_index.html", l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, nav=nav)
+    return render_template("page_index.html", l=l, username=username, role=role, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, nav=nav)
 
 
 @app.route("/weather_call")

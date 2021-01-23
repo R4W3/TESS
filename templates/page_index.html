@@ -15,9 +15,6 @@ style="background-color: {{ bg_color }} ;"
 
 
 
-
-
-
 <div class="container" id="r_home">
     <div class="row">
         <div class="col-8">
@@ -30,8 +27,6 @@ style="background-color: {{ bg_color }} ;"
             <ul class="dropdown-menu show" id="ddm" aria-labelledby="dropdownMenuButtonLG" style="background-color: {{ element_color }}; position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 48px, 0px);" data-popper-placement="bottom-start">
               <li><h6 style="color: {{ accent2_color }};" class="dropdown-header">{{ username }}</h6></li>
               <li><a id="profile" style="color: {{ text_color }};" class="dropdown-item">Profile</a></li>
-              <li><a style="color: {{ text_color }};" class="dropdown-item" href="#">Another action</a></li>
-              <li><a style="color: {{ text_color }};" class="dropdown-item" href="#">Something else here</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a style="color: {{ text_color }};" class="dropdown-item" href="/logout">{{ l.2 }}</a></li>
             </ul>
@@ -67,9 +62,6 @@ style="background-color: {{ bg_color }} ;"
         </div>
     </div>
 </div>
-
-
-
 
 
 
@@ -114,6 +106,7 @@ style="background-color: {{ bg_color }} ;"
                     <div class="card" style="background-color: {{ element_color }};">
                         <div class="card-body" style="color: {{ text_color }};">
                             <div class="row">
+                            <br>
                             <div class="col-md-auto">
                                 <h5>{{ l.23 }}</h5>
                                 <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
@@ -123,6 +116,7 @@ style="background-color: {{ bg_color }} ;"
                                     <button class="btn" style="background-color: #16db65; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
                                 </div>
                             </div>
+                            <br>
                             <div class="col-md-auto">
                                 <h5>{{ l.24 }}</h5>
                                 <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
@@ -161,12 +155,17 @@ style="background-color: {{ bg_color }} ;"
                 <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">{{ l.21 }}</h1>
             </div>
         </div>
+        <div class="row">
+            {% if role == 'admin' %}
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body" style="color: {{ text_color }};">
+                    {{ l.26 }}&nbsp;<span style="color:red">Administrator</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
 </div>
-
-
-
-
 
 
 

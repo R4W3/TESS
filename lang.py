@@ -7,7 +7,7 @@ en = {
     6: 'Good Night',
     7: 'It is',
     8: 'Weather',
-    9: 'Your Lists',
+    9: 'outside.',
     10: 'Add to List',
     11: 'Weather in',
     12: 'Your Movies',
@@ -23,5 +23,6 @@ en = {
     22: 'Weather loading...',
     23: 'Darkmode',
     24: 'Lightmode',
-    25: 'Select a theme'
+    25: 'Select a theme',
+    26: 'Your role is:'
 }

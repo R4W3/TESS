@@ -96,6 +96,21 @@ def setup2():
         mydb.commit()
 
         print(mycursor.rowcount, "record inserted.")
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        sett = "INSERT INTO ", username, " (setting, value) VALUES (%s, %s)"
+        sql = sett
+        val = ("role", "admin")
+        mycursor.execute(sql, val)
+
+        mydb.commit()
+
+        print(mycursor.rowcount, "record inserted.")
 
 
 
