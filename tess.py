@@ -90,6 +90,40 @@ def index():
     return render_template("page_index.html", l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
 
 
+@app.route("/settings")
+def settings():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" and "OS 14" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+    darkmode = "1"
+    if darkmode == "1":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    return render_template("page_settings.html", l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
+
+
+
 @app.route("/app_todo", methods=['GET', 'POST'])
 def app_todo():
     if "user" in session:
@@ -154,4 +188,4 @@ def calendar():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='localhost',debug=True)

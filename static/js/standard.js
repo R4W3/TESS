@@ -33,3 +33,4 @@ function notificationButtonUpdate() {
     pushButton.disabled = false;
   }
 }
+

@@ -17,5 +17,7 @@ en = {
     16: 'User',
     17: 'Username',
     18: 'Password',
-    19: 'Home'
+    19: 'Home',
+    20: 'Please save your settings at the bottom',
+    21: 'Your Profile'
 }
