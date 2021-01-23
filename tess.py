@@ -140,20 +140,26 @@ def weather():
     myresult = mycursor.fetchall()
     for x in myresult:
         api_key = x[1]
-    city_name = "Zeven"
-    base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
-    response = requests.get(complete_url)
-    x = response.json()
-    if x["cod"] != "404":
-        y = x["main"]
-        current_temperature = y["temp"]
-        z = x["weather"]
-        weather_description = z[0]["description"]
-        tempc = int(current_temperature) - 273.15
-        temp = round(tempc)
+    try:
+        api_key
+    except NameError:
+        temp = "No connection / Provide an API Key"
+        pass
     else:
-        temp = "n"
+        city_name = "Zeven"
+        base_url = "http://api.openweathermap.org/data/2.5/weather?"
+        complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+        response = requests.get(complete_url)
+        x = response.json()
+        if x["cod"] != "404":
+            y = x["main"]
+            current_temperature = y["temp"]
+            z = x["weather"]
+            weather_description = z[0]["description"]
+            tempc = int(current_temperature) - 273.15
+            temp = round(tempc)
+        else:
+            temp = "n"
 
     return render_template("weather.php", l=l, temp=temp)
 
@@ -293,6 +299,107 @@ def docs():
                            text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
                            text_alt_color=text_alt_color, h1_size=h1_size, client=client)
 
+
+@app.route("/add_user", methods=['GET', 'POST'])
+def new_user():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        role = request.form['role']
+        f = open("various/db.txt", "r")
+        db_user = f.readline().rstrip("\n")
+        db_pass = f.readline().rstrip("\n")
+        db_host = f.readline().rstrip("\n")
+        f.close()
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        sql = "INSERT INTO userdata (user, pass) VALUES (%s, %s)"
+        val = (username, password)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        print(mycursor.rowcount, "record inserted.")
+
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        mycursor.execute("CREATE TABLE "+username+" (setting VARCHAR(255), value VARCHAR(255))")
+
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        sql = "INSERT INTO "+username+" (setting, value) VALUES (%s, %s)"
+        val = [
+            ("role", role),
+            ("theme", "dark")
+            ]
+        mycursor.executemany(sql, val)
+        mydb.commit()
+        print(mycursor.rowcount, "was inserted.")
+        return redirect("/")
+
+
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+        client = "iPhone"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+        client = "Desktop"
+
+    if theme == "dark":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+    return render_template("add_user.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
+                           text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
+                           text_alt_color=text_alt_color, h1_size=h1_size, client=client)
 
 if __name__ == "__main__":
     app.run(host='localhost', debug=True)

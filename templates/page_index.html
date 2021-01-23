@@ -28,6 +28,9 @@ style="background-color: {{ bg_color }} ;"
             </div>
         </div>
         <br>
+        {% if role == 'admin' %}
+            {% include 'settings_admin.html' %}
+        {% endif %}
         <form action="/settings" method="POST">
             <div class="row">
                 <div class="col">

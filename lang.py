@@ -28,5 +28,14 @@ en = {
     27: 'Your Rooms',
     28: 'Lights',
     29: 'Temperature',
-    30: 'Lists'
+    30: 'Lists',
+    31: 'Administrator Settings',
+    32: 'Be careful, read the docs',
+    33: 'Add a new user',
+    34: 'Confirm',
+    35: 'Select a role for the new User',
+    36: 'Administrator',
+    37: 'User',
+    38: 'Role',
+    39: 'Warning',
 }

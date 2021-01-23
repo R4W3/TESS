@@ -1,0 +1,67 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if client == 'iPhone' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if client == 'Desktop' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+<div class="container" style="background-color: {{ element_color }}; border-radius: 15px; padding: 2vw">
+    <br>
+    <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">{{ l.33 }}</h1>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <br>
+            <form action="/add_user" method="POST">
+                    <div class="mb-3" style="color: {{ text_alt_color }};">
+                        <input id="username" name="username" type="text" class="validate"><br>
+                        <label for="username">{{ l.17 }}</label>
+                    </div>
+                    <div class="mb-3" style="color: {{ text_alt_color }};">
+                        <input id="password" name="password" type="text" class="validate"><br>
+                        <label for="password">{{ l.18 }}</label>
+                    </div>
+                    <div class="mb-3" style="color: {{ text_alt_color }};">
+                    <select class="form-select" id="role" name="role" aria-label="User Role">
+                        <option value="user">{{ l.37 }}</option>
+                        <option value="admin">{{ l.36 }}</option>
+                    </select><label for="role">{{ l.38 }}</label><br></div>
+
+                  <button class="btn btn-primary" type="submit">{{ l.34 }}</button>
+             </form><br>
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-8">
+            <h3 style="color: {{ text_alt_color }};">{{ l.39 }}</h3>
+            <p></p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('#home').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+{% endblock %}
