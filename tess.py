@@ -62,8 +62,11 @@ def index():
     print(ua)
     if "iPhone" and "OS 14" in ua:
         h1_size = "calc(1.375rem + 3vw)"
+        nav = "nav_mobile.html"
     else:
         h1_size = "calc(1.375rem + 1.5vw)"
+        nav = "nav_desktop.html"
+
     darkmode = "1"
     if darkmode == "1":
         bg_color = "#020202"
@@ -98,7 +101,7 @@ def index():
         temp = "n"
 
 
-    return render_template("page_index.html", temp=temp, l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
+    return render_template("page_index.html", temp=temp, l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, nav=nav)
 
 
 @app.route("/weather_call")
