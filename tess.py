@@ -106,7 +106,29 @@ def index():
 
 @app.route("/weather_call")
 def weather():
-    api_key = "ef8fbd4d3f92d385771412145a1b36dc"
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    print(db_host, db_pass, db_user)
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM "+username+" WHERE setting ='owm-api'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        api_key = x[1]
     city_name = "Zeven"
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     complete_url = base_url + "appid=" + api_key + "&q=" + city_name

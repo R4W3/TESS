@@ -3,8 +3,13 @@ tess
         user
         pass
         id PRIMARY KEY
-    todo
-        item
-        state
+    "USERNAME"
+        setting
+        value
+
+        theme->dark
+        owm-api->key
+
+
 
 

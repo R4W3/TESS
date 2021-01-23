@@ -20,5 +20,8 @@ en = {
     19: 'Home',
     20: 'Please save your settings at the bottom',
     21: 'Your Profile',
-    22: 'Weather loading...'
+    22: 'Weather loading...',
+    23: 'Darkmode',
+    24: 'Lightmode',
+    25: 'Select a theme'
 }
