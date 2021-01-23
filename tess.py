@@ -84,24 +84,8 @@ def index():
         accent_color = "#036016"
         accent2_color = '#16db65'
 
-    api_key = "ef8fbd4d3f92d385771412145a1b36dc"
-    city_name = "Zeven"
-    base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
-    response = requests.get(complete_url)
-    x = response.json()
-    if x["cod"] != "404":
-        y = x["main"]
-        current_temperature = y["temp"]
-        z = x["weather"]
-        weather_description = z[0]["description"]
-        tempc = int(current_temperature) - 273.15
-        temp = round(tempc)
-    else:
-        temp = "n"
 
-
-    return render_template("page_index.html", temp=temp, l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, nav=nav)
+    return render_template("page_index.html", l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, nav=nav)
 
 
 @app.route("/weather_call")
