@@ -54,7 +54,7 @@ style="background-color: {{ bg_color }} ;"
             </div>
         </div>
         <div class="col-3">
-            <div class="card" style="background-color: {{ element_color }};">
+            <div onclick="location.href='/lights';" class="card" style="background-color: {{ element_color }};">
                 <div class="card-body text-center" style="color: {{ text_color }};">
                     <i class="fas fa-lightbulb fa-2x"></i><br>
                 </div>
@@ -80,7 +80,7 @@ style="background-color: {{ bg_color }} ;"
 
 
 <div id="r_settings" style="display: None;">
-        <div class="container">
+    <div class="container">
         <div class="row">
             <div class="col">
                 <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">{{ l.1 }}</h1>

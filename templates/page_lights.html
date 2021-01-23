@@ -1,0 +1,75 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if nav == 'nav_mobile.html' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if nav == 'nav_desktop.html' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+
+
+
+<div class="container" id="r_lights">
+    <div class="row">
+        <div class="col-8">
+            <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">{{ l.28 }}</h1>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-lightbulb fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-lightbulb fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-lightbulb fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-lightbulb fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('#home').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+{% endblock %}

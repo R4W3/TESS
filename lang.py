@@ -25,5 +25,6 @@ en = {
     24: 'Lightmode',
     25: 'Select a theme',
     26: 'Your role is:',
-    27: 'Your Rooms'
+    27: 'Your Rooms',
+    28: 'Lights'
 }
