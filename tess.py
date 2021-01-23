@@ -2,15 +2,9 @@ from __future__ import print_function
 from flask import Flask, render_template, redirect, request, session
 import mysql.connector
 from lang import en
-import datetime
-import pickle
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+import requests
 
 l = en
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
@@ -87,105 +81,46 @@ def index():
         accent_color = "#036016"
         accent2_color = '#16db65'
 
-    return render_template("page_index.html", l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
-
-
-@app.route("/settings")
-def settings():
-    if "user" in session:
-        pass
+    api_key = "ef8fbd4d3f92d385771412145a1b36dc"
+    city_name = "Zeven"
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+    response = requests.get(complete_url)
+    x = response.json()
+    if x["cod"] != "404":
+        y = x["main"]
+        current_temperature = y["temp"]
+        z = x["weather"]
+        weather_description = z[0]["description"]
+        tempc = int(current_temperature) - 273.15
+        temp = round(tempc)
     else:
-        return redirect("/login", code=302)
-    username = session["user"]
-    ua = str(request.user_agent)
-    print(ua)
-    if "iPhone" and "OS 14" in ua:
-        h1_size = "calc(1.375rem + 3vw)"
+        temp = "n"
+
+
+    return render_template("page_index.html", temp=temp, l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
+
+
+@app.route("/weather_call")
+def weather():
+    api_key = "ef8fbd4d3f92d385771412145a1b36dc"
+    city_name = "Zeven"
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+    response = requests.get(complete_url)
+    x = response.json()
+    if x["cod"] != "404":
+        y = x["main"]
+        current_temperature = y["temp"]
+        z = x["weather"]
+        weather_description = z[0]["description"]
+        tempc = int(current_temperature) - 273.15
+        temp = round(tempc)
     else:
-        h1_size = "calc(1.375rem + 1.5vw)"
-    darkmode = "1"
-    if darkmode == "1":
-        bg_color = "#020202"
-        element_color = "#4F4B58"
-        text_color = "#C5CBD3"
-        text_alt_color = "#C5CBD3"
-        accent_color = "#036016"
-        accent2_color = '#16db65'
+        temp = "n"
 
-    else:
-        bg_color = "#C5CBD3"
-        element_color = "#4F4B58"
-        text_color = "#fff"
-        text_alt_color = "#020202"
-        accent_color = "#036016"
-        accent2_color = '#16db65'
-
-    return render_template("page_settings.html", l=l, username=username, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
-
-
-
-@app.route("/app_todo", methods=['GET', 'POST'])
-def app_todo():
-    if "user" in session:
-        pass
-    else:
-        return redirect("/login", code=302)
-    username = session["user"]
-
-    return render_template("app_todo.html", l=l, username=username)
-
-
-@app.route("/app_weather")
-def app_weather():
-    if "user" in session:
-        pass
-    else:
-        return redirect("/login", code=302)
-    username = session["user"]
-
-    return render_template("app_weather.html", l=l, username=username)
-
-
-@app.route("/app_calendar")
-def calendar():
-    if "user" in session:
-        pass
-    else:
-        return redirect("/login", code=302)
-    username = session["user"]
-    creds = None
-
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('calendar', 'v3', credentials=creds)
-
-    now = datetime.datetime.utcnow().isoformat() + 'Z'
-    print('Getting the upcoming 10 events')
-    events_result = service.events().list(calendarId='primary', timeMin=now,
-                                          maxResults=10, singleEvents=True,
-                                          orderBy='startTime').execute()
-    events = events_result.get('items', [])
-    print(events)
-    if not events:
-        print('No upcoming events found.')
-    for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        print(start, event['summary'])
-
-
-    return render_template("app_calendar.html", l=l, username=username, events=events, start=start)
+    return render_template("weather.php", l=l, temp=temp)
 
 
 if __name__ == "__main__":
-    app.run(host='localhost',debug=True)
+    app.run(host='localhost', debug=True)

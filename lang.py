@@ -5,7 +5,7 @@ en = {
     4: 'Welcome',
     5: 'Good Morning',
     6: 'Good Night',
-    7: 'Your Home',
+    7: 'It is',
     8: 'Weather',
     9: 'Your Lists',
     10: 'Add to List',
@@ -19,5 +19,6 @@ en = {
     18: 'Password',
     19: 'Home',
     20: 'Please save your settings at the bottom',
-    21: 'Your Profile'
+    21: 'Your Profile',
+    22: 'Weather loading...'
 }
