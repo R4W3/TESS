@@ -214,12 +214,12 @@ def lights():
         theme = x[1]
     ua = str(request.user_agent)
     print(ua)
-    if "iPhone" and "OS 14" in ua:
+    if "iPhone" in ua:
         h1_size = "calc(1.375rem + 3vw)"
-        nav = "nav_mobile.html"
+        client = "iPhone"
     else:
         h1_size = "calc(1.375rem + 1.5vw)"
-        nav = "nav_desktop.html"
+        client = "Desktop"
 
     if theme == "dark":
         bg_color = "#020202"
@@ -237,7 +237,61 @@ def lights():
         accent_color = "#036016"
         accent2_color = '#16db65'
 
-    return render_template("page_lights.html", username=username, l=l, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, nav=nav)
+    return render_template("page_lights.html", username=username, client=client, l=l, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
+
+
+@app.route("/documentation")
+def docs():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+        client = "iPhone"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+        client = "Desktop"
+
+    if theme == "dark":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    return render_template("documentation.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
+                           text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
+                           text_alt_color=text_alt_color, h1_size=h1_size, client=client)
 
 
 if __name__ == "__main__":

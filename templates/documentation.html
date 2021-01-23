@@ -1,0 +1,99 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if client == 'iPhone' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if client == 'Desktop' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+<div class="container" style="background-color: {{ element_color }}; color: {{ text_color }};">
+    <div class="row">
+        <div class="col-2">
+            <br>
+            <h4>Table of contents</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#setup" style="color: {{ text_color }}; text-decoration: none">1. Introduction</a>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#setup" style="color: {{ text_color }}; text-decoration: none">2. Setup</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <br>
+            <h1>1. Introduction</h1>
+            <br>
+            <p>Welcome to Tess. This app aims to ease Home Automation and keep your data on your own server.<br>
+            The following doc provides you with useful insights into the system.
+            </p>
+            <br>
+            <h1>2. Setup</h1>
+            <br>
+            <h2>2.1 Requirements</h2>
+            <br>
+            <p>a. A Server (e.g. Raspberry Pi)</p>
+            <p>b. A functioning instance of MySQL on the Server</p>
+            <br>
+            <h2>2.2 Start setup.py</h2>
+            <br>
+            <p>Make sure your device for setup is in the same network as the server.<br>
+            Open a shell and navigate to the downloaded directory. Enter the following command:<br>
+            <div class="alert alert-light" role="alert">
+            <code>> python setup.py</code>
+            </div>
+            Go to your browser of choice and access:<br>
+            <div class="alert alert-light" role="alert">
+            <code>localhost:5000</code>
+            </div>
+            Click the Go button to start the setup.<br>
+            Enter your database details. Once you press next it will create a database called "tess".
+            This will later contain usernames and passwords of your users.
+            To view the entire database tree click <a style="text-decoration: none" href="">here</a>.<br><br>
+            On the second screen you will create your admin account. This is the only role with full permissions.
+            More on that topic later.
+            </p>
+            <br>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    $('#home').click(function(){
+    $('#r_home').css('display','');
+    $('#r_settings').css('display','None');
+    $('#r_profile').css('display','None');
+    $("#home").css("color", "{{ accent2_color }}");
+    $("#settings").css("color", "{{ text_color }}");
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $('#r_home').css('display','None');
+    $('#r_settings').css('display','');
+    $('#r_profile').css('display','None');
+    $("#home").css("color", "{{ text_color }}");
+    $("#settings").css("color", "{{ accent2_color }}");
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $('#r_home').css('display','None');
+    $('#r_settings').css('display','None');
+    $('#r_profile').css('display','');
+    $("#home").css("color", "{{ accent2_color }}");
+    $("#settings").css("color", "{{ text_color }}");
+    });
+</script>
+{% endblock %}
