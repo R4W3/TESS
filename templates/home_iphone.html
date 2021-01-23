@@ -1,0 +1,92 @@
+<div class="container" id="r_home">
+    <div class="row">
+        <div class="col-8">
+            <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">{{ l.3 }}, {{ username }}</h1>
+        </div>
+        <div class="col-4 dropdown text-end">
+            <a class="dropdown-toggle show" id="dropdownMenuButtonLG" data-bs-toggle="dropdown" aria-expanded="false" style="color: {{ text_alt_color }}; text-decoration:none;">
+              <i class="fas fa-2x fa-user"></i>
+            </a>
+            <ul class="dropdown-menu show" id="ddm" aria-labelledby="dropdownMenuButtonLG" style="background-color: {{ element_color }}; position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 48px, 0px);" data-popper-placement="bottom-start">
+              <li><h6 style="color: {{ accent2_color }};" class="dropdown-header">{{ username }}</h6></li>
+              <li><a id="profile" style="color: {{ text_color }};" class="dropdown-item">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a style="color: {{ text_color }};" class="dropdown-item" href="/logout">{{ l.2 }}</a></li>
+            </ul>
+          </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body" style="color: {{ text_color }};">
+                    <div hx-get="/weather_call" hx-trigger="every 1s delay:1s" hx-swap="outerHTML" id="ar_weather" class="card-body" style="color: {{ text_color }};">
+                        {{ l.22 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-home fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div onclick="location.href='/lights';" class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-lightbulb fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-temperature-low fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-clipboard-check fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-newspaper fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-comments fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-door-closed fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="background-color: {{ element_color }};">
+                <div class="card-body text-center" style="color: {{ text_color }};">
+                    <i class="fas fa-list fa-2x"></i><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
