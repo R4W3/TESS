@@ -6,35 +6,8 @@ from lang_de import german
 import requests
 
 
-
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
-
-
-def language():
-    username = session["user"]
-    f = open("various/db.txt", "r")
-    db_user = f.readline().rstrip("\n")
-    db_pass = f.readline().rstrip("\n")
-    db_host = f.readline().rstrip("\n")
-    f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
-
 
 
 @app.route('/service-worker.js')
@@ -68,27 +41,7 @@ def login():
             return redirect("/", code=302)
         else:
             return redirect("/login")
-    f = open("various/db.txt", "r")
-    db_user = f.readline().rstrip("\n")
-    db_pass = f.readline().rstrip("\n")
-    db_host = f.readline().rstrip("\n")
-    f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
+    l = english
 
     return render_template("page_login.html", l=l)
 
@@ -541,6 +494,102 @@ def new_user():
     return render_template("add_user.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
                            text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
                            text_alt_color=text_alt_color, h1_size=h1_size, client=client)
+
+
+@app.route("/todo")
+def todo():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+        client = "iPhone"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+        client = "Desktop"
+
+    if theme == "dark":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+    db_db = username+"_todo"
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database=db_db
+    )
+    mycursor = db.cursor()
+    mycursor.execute("SHOW TABLES")
+
+    for x in mycursor:
+        print(x)
+        tables = list(x)
+    for item in tables:
+        db_db = username + "_todo"
+        db = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database=db_db
+        )
+        mycursor = db.cursor()
+        mycursor.execute("SELECT * FROM "+item+"")
+        for y in myresult:
+            print(y)
+            items = list(y)
+
+    return render_template("page_todo.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
+                           text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
+                           text_alt_color=text_alt_color, h1_size=h1_size, client=client, tables=tables, items=items)
 
 
 if __name__ == "__main__":

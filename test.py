@@ -14,14 +14,17 @@ def create_todo_db():
         database="tess"
     )
     mycursor = mydb.cursor()
-    sett = "INSERT INTO Testnutzer (setting, value) VALUES (%s, %s)"
-    sql = sett
-    val = ("language", "en")
-    mycursor.execute(sql, val)
+    mycursor.execute("CREATE DATABASE Rene_todo")
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="Rene_todo"
+    )
 
-    mydb.commit()
+    mycursor = mydb.cursor()
 
-    print(mycursor.rowcount, "record inserted.")
+    mycursor.execute("CREATE TABLE Standardlist (item VARCHAR(255), state VARCHAR(255))")
 
 
 create_todo_db()

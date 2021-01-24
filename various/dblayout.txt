@@ -12,6 +12,11 @@ tess
         role->admin
         language->en
 
+"USERNAME_todo"
+    LISTNAME
+        item
+        state
+
 
 
 

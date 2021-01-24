@@ -1,0 +1,37 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if client == 'iPhone' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if client == 'Desktop' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+
+{% for todolist in tables %}
+<h1>{{ todolist }}</h1>
+{% endfor %}
+
+
+
+<script>
+    $('#home').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+{% endblock %}
