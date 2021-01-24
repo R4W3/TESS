@@ -1,13 +1,40 @@
 from __future__ import print_function
 from flask import Flask, render_template, redirect, request, session
 import mysql.connector
-from lang import en
+from lang_en import english
+from lang_de import german
 import requests
 
-l = en
+
 
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
+
+
+def language():
+    username = session["user"]
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
+
 
 
 @app.route('/service-worker.js')
@@ -41,6 +68,27 @@ def login():
             return redirect("/", code=302)
         else:
             return redirect("/login")
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
 
     return render_template("page_login.html", l=l)
 
@@ -63,6 +111,22 @@ def index():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -128,6 +192,22 @@ def weather():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -175,6 +255,7 @@ def settings():
         req = request.form
         print(req)
         new_theme = req.get("theme")
+        new_language = req.get("language")
         f = open("various/db.txt", "r")
         db_user = f.readline().rstrip("\n")
         db_pass = f.readline().rstrip("\n")
@@ -188,6 +269,17 @@ def settings():
         )
         mycursor = mydb.cursor()
         sql = "UPDATE "+username+" SET value = '"+new_theme+"' WHERE setting = 'theme'"
+        mycursor.execute(sql)
+        mydb.commit()
+        print(mycursor.rowcount, "record(s) affected")
+        mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database="tess"
+        )
+        mycursor = mydb.cursor()
+        sql = "UPDATE " + username + " SET value = '" +new_language+ "' WHERE setting = 'language'"
         mycursor.execute(sql)
         mydb.commit()
         print(mycursor.rowcount, "record(s) affected")
@@ -206,6 +298,22 @@ def lights():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -258,6 +366,22 @@ def docs():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -343,7 +467,8 @@ def new_user():
         sql = "INSERT INTO "+username+" (setting, value) VALUES (%s, %s)"
         val = [
             ("role", role),
-            ("theme", "dark")
+            ("theme", "dark"),
+            ("language", "en")
             ]
         mycursor.executemany(sql, val)
         mydb.commit()
@@ -361,6 +486,22 @@ def new_user():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -400,6 +541,7 @@ def new_user():
     return render_template("add_user.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
                            text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
                            text_alt_color=text_alt_color, h1_size=h1_size, client=client)
+
 
 if __name__ == "__main__":
     app.run(host='localhost', debug=True)

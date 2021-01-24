@@ -65,7 +65,7 @@ style="background-color: {{ bg_color }} ;"
                             <div class="row">
                             <br>
                             <div class="col-md-auto">
-                                <h5>{{ l.23 }}</h5>
+                                <h5>{{ l.23 }}</h5><br>
                                 <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
                                     <button class="btn" style="background-color: #020202; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
                                     <button class="btn" style="background-color: #4F4B58; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
@@ -75,7 +75,7 @@ style="background-color: {{ bg_color }} ;"
                             </div>
                             <br>
                             <div class="col-md-auto">
-                                <h5>{{ l.24 }}</h5>
+                                <h5>{{ l.24 }}</h5><br>
                                 <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
                                     <button class="btn" style="background-color: #C5CBD3; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
                                     <button class="btn" style="background-color: #4F4B58; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
@@ -84,13 +84,17 @@ style="background-color: {{ bg_color }} ;"
                                 </div>
                             </div>
                             </div>
-                            <br>
+                            <br><br>
 
-                            <select class="form-select" name="theme" aria-label="Default select example">
-                                <option selected>{{ l.25 }}</option>
+                            <select class="form-select" id="theme" name="theme" aria-label="Default select example">
                                 <option value="dark">{{ l.23 }}</option>
                                 <option value="light">{{ l.24 }}</option>
-                            </select>
+                            </select><label for="theme">{{ l.25 }}</label><br>
+                            <br>
+                            <select class="form-select" id="language" name="language" aria-label="Default select example">
+                                <option value="en">{{ l.41 }}</option>
+                                <option value="de">{{ l.42 }}</option>
+                            </select><label for="language">{{ l.40 }}</label><br>
                             <br>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <br>

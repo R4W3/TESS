@@ -14,9 +14,9 @@ def create_todo_db():
         database="tess"
     )
     mycursor = mydb.cursor()
-    sett = "INSERT INTO Rene (setting, value) VALUES (%s, %s)"
+    sett = "INSERT INTO Testnutzer (setting, value) VALUES (%s, %s)"
     sql = sett
-    val = ("role", "admin")
+    val = ("language", "en")
     mycursor.execute(sql, val)
 
     mydb.commit()

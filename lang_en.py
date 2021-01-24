@@ -1,4 +1,4 @@
-en = {
+english = {
     1: 'Settings',
     2: 'Log out',
     3: 'Hello',
@@ -38,4 +38,8 @@ en = {
     37: 'User',
     38: 'Role',
     39: 'Warning',
+    40: 'Choose a language',
+    41: 'English',
+    42: 'German',
+    43: 'Profile'
 }

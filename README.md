@@ -1,4 +1,6 @@
 # TESS
+## v.0.0.3
+Admin can now add a User from settings<br>
 ## v.0.0.2
 Added pages<br>
 Added Bootstrap UI<br>
