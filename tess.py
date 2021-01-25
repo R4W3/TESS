@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
 
 
+
 @app.route('/service-worker.js')
 def sw():
     return app.send_static_file('service-worker.js')
@@ -52,13 +53,19 @@ def logout():
     return redirect("/login")
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     if "user" in session:
         pass
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    if request.method == 'POST':
+        f = request.files['audio_data']
+        print(f)
+        with open('audio.wav', 'wb') as audio:
+            f.save(audio)
+        print('file uploaded successfully')
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
@@ -592,6 +599,20 @@ def todo():
                            text_alt_color=text_alt_color, h1_size=h1_size, client=client, tables=tables, items=items)
 
 
+@app.route("/voice", methods=['GET', 'POST'])
+def voice():
+    if request.method == 'POST':
+        f = request.files['audio_data']
+        print(f)
+        with open('audio.wav', 'wb') as audio:
+            f.save(audio)
+        print('file uploaded successfully')
+
+    return render_template("index.html")
+
+@app.route("/upload", methods=['GET', 'POST'])
+def up():
+    return render_template("upload.php")
 
 if __name__ == "__main__":
     app.run(host='localhost', debug=True)
