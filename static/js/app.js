@@ -116,7 +116,6 @@ function stopRecording() {
 	//create the wav blob and pass it on to createDownloadLink
 	rec.exportWAV(createDownloadLink);
 }
-
 function createDownloadLink(blob) {
 
 	var url = URL.createObjectURL(blob);
@@ -161,6 +160,7 @@ function createDownloadLink(blob) {
 		  fd.append("audio_data",blob, filename);
 		  xhr.open("POST","/",true);
 		  xhr.send(fd);
+		  document.location.href="/voice"
 	})
 	li.appendChild(document.createTextNode (" "))//add a space in between
 	li.appendChild(upload)//add the upload link to li

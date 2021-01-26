@@ -41,5 +41,7 @@ german = {
     40: 'Wähle eine Sprache',
     41: 'Englisch',
     42: 'Deutsch',
-    43: 'Profil'
+    43: 'Profil',
+    44: 'Test erfolgreich',
+    45: 'Das Wetter'
 }

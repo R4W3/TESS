@@ -1,0 +1,69 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if client == 'iPhone' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if client == 'Desktop' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% if recognized == 'fail' %}
+                {% include 'voice/notrecognized.html' %}
+
+            {% elif recognized == 'noconnection' %}
+                {% include 'voice/noconnection.html' %}
+
+            {% else %}
+                {% include 'voice/recognized.html' %}
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            {% if result == 'test' %}
+                {% include 'voice/results/test.html' %}
+            {% elif result == 'weather_today' %}
+                {% include 'voice/results/weather_today.html' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    var audio = new Audio('/static/listen.mp3');
+    audio.play();
+    setTimeout('playResult();', 1000);
+});
+
+    function playResult() {
+    var result = new Audio('{{ resultaudio }}');
+          result.play();
+}
+</script>
+<script>
+    $('#home').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+{% endblock %}

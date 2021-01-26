@@ -1,14 +1,14 @@
 from __future__ import print_function
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, url_for
 import mysql.connector
 from lang_en import english
 from lang_de import german
 import requests
-
+import speech_recognition as sr
+import pyttsx3
 
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
-
 
 
 @app.route('/service-worker.js')
@@ -63,9 +63,11 @@ def index():
     if request.method == 'POST':
         f = request.files['audio_data']
         print(f)
-        with open('audio.wav', 'wb') as audio:
+        with open('audio'+username+'.wav', 'wb') as audio:
             f.save(audio)
         print('file uploaded successfully')
+        return redirect(url_for('voice'))
+
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
@@ -435,7 +437,6 @@ def new_user():
         print(mycursor.rowcount, "was inserted.")
         return redirect("/")
 
-
     if "user" in session:
         pass
     else:
@@ -599,20 +600,110 @@ def todo():
                            text_alt_color=text_alt_color, h1_size=h1_size, client=client, tables=tables, items=items)
 
 
-@app.route("/voice", methods=['GET', 'POST'])
+@app.route("/voice")
 def voice():
-    if request.method == 'POST':
-        f = request.files['audio_data']
-        print(f)
-        with open('audio.wav', 'wb') as audio:
-            f.save(audio)
-        print('file uploaded successfully')
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    engine = pyttsx3.init()
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    voices = engine.getProperty('voices')
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+        voiceout = voices[1].id
+    if l == "de":
+        l = german
+        voiceout = voices[0].id
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+        client = "iPhone"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+        client = "Desktop"
 
-    return render_template("index.html")
+    if theme == "dark":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
 
-@app.route("/upload", methods=['GET', 'POST'])
-def up():
-    return render_template("upload.php")
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+    r = sr.Recognizer()
+    audiotranscribe = "audio"+username+".wav"
+    with sr.AudioFile(audiotranscribe) as source:
+        audio = r.record(source)
+    try:
+        recognized = r.recognize_google(audio)
+    except sr.UnknownValueError:
+        print("Google Speech Recognition could not understand audio")
+        recognized = "fail"
+    except sr.RequestError as e:
+        print("Could not request results from Google Speech Recognition service; {0}".format(e))
+        recognized = "noconnection"
+
+    if "test" in recognized:
+        text = l[44]
+        engine.setProperty('rate', 150)
+        engine.setProperty('voice', voiceout)
+        engine.save_to_file(text, 'static/result'+username+'.mp3')
+        engine.runAndWait()
+        result = "test"
+    elif "weather" and "today" in recognized:
+        text = l[45]
+        engine.setProperty('rate', 150)
+        engine.setProperty('voice', voiceout)
+        engine.save_to_file(text, 'static/result' + username + '.mp3')
+        engine.runAndWait()
+        result = "weather_today"
+
+    resultaudio = '/static/result'+username+'.mp3'
+
+
+    return render_template("page_voice.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
+                           text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
+                           text_alt_color=text_alt_color, h1_size=h1_size, client=client, recognized=recognized,
+                           result=result, resultaudio=resultaudio)
+
 
 if __name__ == "__main__":
     app.run(host='localhost', debug=True)
