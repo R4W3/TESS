@@ -19,7 +19,7 @@ style="background-color: {{ bg_color }} ;"
             <h4>Table of contents</h4>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#setup" style="color: {{ text_color }}; text-decoration: none">1. Introduction</a>
+                    <a class="nav-link" href="#intro" style="color: {{ text_color }}; text-decoration: none">1. Introduction</a>
                 </li>
             </ul>
             <ul class="nav flex-column">
@@ -27,15 +27,25 @@ style="background-color: {{ bg_color }} ;"
                     <a class="nav-link" href="#setup" style="color: {{ text_color }}; text-decoration: none">2. Setup</a>
                 </li>
             </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#dashboard" style="color: {{ text_color }}; text-decoration: none">3. Dashboard</a>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#databasetree" style="color: {{ text_color }}; text-decoration: none">X. Database tree</a>
+                </li>
+            </ul>
         </div>
         <div class="col-8">
-            <br>
+            <br id="intro">
             <h1>1. Introduction</h1>
             <br>
             <p>Welcome to Tess. This app aims to ease Home Automation and keep your data on your own server.<br>
-            The following doc provides you with useful insights into the system.
+            The following doc provides you with useful insights into the system and information on how to set it up.
             </p>
-            <br>
+            <br id="setup">
             <h1>2. Setup</h1>
             <br>
             <h2>2.1 Requirements</h2>
@@ -57,10 +67,35 @@ style="background-color: {{ bg_color }} ;"
             Click the Go button to start the setup.<br>
             Enter your database details. Once you press next it will create a database called "tess".
             This will later contain usernames and passwords of your users.
-            To view the entire database tree click <a style="text-decoration: none" href="">here</a>.<br><br>
+            To view the entire database tree click <a style="text-decoration: none" href="#databasetree">here</a>.<br><br>
             On the second screen you will create your admin account. This is the only role with full permissions.
             More on that topic later.
             </p>
+            <br id="dashboard">
+            <h1>3. The Dashboard</h1>
+            <br>
+            <p>
+            This part of the docs will teach you about the Dashboard, how it is used and what functionality it offers.
+            </p>
+            <br id="databasetree">
+            <h1>X. Database tree</h1>
+            <br>
+            <ul>
+                <li>Tess</li>
+                <ul>
+                <li>userdata</li>
+                    <ul>
+                        <li>user</li>
+                        <li>pass</li>
+                        <li>id PRIMARY KEY</li>
+                    </ul>
+                <li>"USERNAME"</li>
+                    <ul>
+                        <li>setting</li>
+                        <li>value</li>
+                    </ul>
+                </ul>
+            </ul>
             <br>
         </div>
     </div>
