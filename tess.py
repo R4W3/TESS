@@ -709,6 +709,13 @@ def voice():
             engine.save_to_file(text, 'static/result' + username + '.mp3')
             engine.runAndWait()
             result = "weather_today"
+        elif "open" and "settings" in recognized:
+            text = l[48]
+            engine.setProperty('rate', 150)
+            engine.setProperty('voice', voiceout)
+            engine.save_to_file(text, 'static/result' + username + '.mp3')
+            engine.runAndWait()
+            result = "settings"
     elif l == "de":
         l = german
         with sr.AudioFile(audiotranscribe) as source:
@@ -735,6 +742,13 @@ def voice():
             engine.save_to_file(text, 'static/result' + username + '.mp3')
             engine.runAndWait()
             result = "weather_today"
+        elif "öffne" and "einstellungen" in recognized:
+            text = l[48]
+            engine.setProperty('rate', 150)
+            engine.setProperty('voice', voiceout)
+            engine.save_to_file(text, 'static/result' + username + '.mp3')
+            engine.runAndWait()
+            result = "settings"
 
     resultaudio = '/static/result'+username+'.mp3'
 

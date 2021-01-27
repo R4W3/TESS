@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">{{ l.1 }}</h1>
+            <p style="color: {{ text_alt_color }};">{{ l.20 }}</p>
+        </div>
+    </div>
+    <br>
+    {% if role == 'admin' %}
+        {% include 'settings_admin.html' %}
+    {% endif %}
+    <form action="/settings" method="POST">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="background-color: {{ element_color }};">
+                    <div class="card-body" style="color: {{ text_color }};">
+                        <div class="form-check form-switch">
+                            <label>Toggle Text Right</label>
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="card" style="background-color: {{ element_color }};">
+                    <div class="card-body" style="color: {{ text_color }};">
+                        <div class="form-check form-switch">
+                            <label>Toggle Text Right</label>
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="card" style="background-color: {{ element_color }};">
+                    <div class="card-body" style="color: {{ text_color }};">
+                        <div class="row">
+                        <br>
+                        <div class="col-md-auto">
+                            <h5>{{ l.23 }}</h5><br>
+                            <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
+                                <button class="btn" style="background-color: #020202; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                                <button class="btn" style="background-color: #4F4B58; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                                <button class="btn" style="background-color: #C5CBD3; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                                <button class="btn" style="background-color: #16db65; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-auto">
+                            <h5>{{ l.24 }}</h5><br>
+                            <div class="btn-group" role="group" aria-label="Basic example" style="box-shadow: 5px 8px 12px #000">
+                                <button class="btn" style="background-color: #C5CBD3; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                                <button class="btn" style="background-color: #4F4B58; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                                <button class="btn" style="background-color: #fff; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                                <button class="btn" style="background-color: #16db65; opacity: 1;" disabled>&nbsp;&nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+                        </div>
+                        <br><br>
+
+                        <select class="form-select" id="theme" name="theme" aria-label="Default select example">
+                            <option value="dark">{{ l.23 }}</option>
+                            <option value="light">{{ l.24 }}</option>
+                        </select><label for="theme">{{ l.25 }}</label><br>
+                        <br>
+                        <select class="form-select" id="language" name="language" aria-label="Default select example">
+                            <option value="en">{{ l.41 }}</option>
+                            <option value="de">{{ l.42 }}</option>
+                        </select><label for="language">{{ l.40 }}</label><br>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+</div>
+
+

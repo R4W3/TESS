@@ -33,6 +33,8 @@ style="background-color: {{ bg_color }} ;"
                 {% include 'voice/results/test.html' %}
             {% elif result == 'weather_today' %}
                 {% include 'voice/results/weather_today.html' %}
+            {% elif result == 'settings' %}
+                {% include 'voice/results/settings.html' %}
             {% endif %}
         </div>
     </div>
