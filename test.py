@@ -1,7 +1,20 @@
-import pyttsx3
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty('rate', 150)
-engine.setProperty('voice', voices[1].id)
-engine.say("Test completed")
-engine.runAndWait()
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="Rene",
+  password="CX30re92#",
+  database="tess"
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SELECT user FROM userdata ")
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    final = list(x)
+
+    print(final)
+
+

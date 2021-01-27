@@ -670,31 +670,71 @@ def voice():
         accent2_color = '#16db65'
     r = sr.Recognizer()
     audiotranscribe = "audio"+username+".wav"
-    with sr.AudioFile(audiotranscribe) as source:
-        audio = r.record(source)
-    try:
-        recognized = r.recognize_google(audio)
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-        recognized = "fail"
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
-        recognized = "noconnection"
-
-    if "test" in recognized:
-        text = l[44]
-        engine.setProperty('rate', 150)
-        engine.setProperty('voice', voiceout)
-        engine.save_to_file(text, 'static/result'+username+'.mp3')
-        engine.runAndWait()
-        result = "test"
-    elif "weather" and "today" in recognized:
-        text = l[45]
-        engine.setProperty('rate', 150)
-        engine.setProperty('voice', voiceout)
-        engine.save_to_file(text, 'static/result' + username + '.mp3')
-        engine.runAndWait()
-        result = "weather_today"
+    db = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = db.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    voices = engine.getProperty('voices')
+    for x in myresult:
+        l = x[1]
+    if l == "en":
+        l = english
+        with sr.AudioFile(audiotranscribe) as source:
+            audio = r.record(source)
+        try:
+            recognized = r.recognize_google(audio)
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand audio")
+            recognized = "fail"
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            recognized = "noconnection"
+        if "test" in recognized:
+            text = l[44]
+            engine.setProperty('rate', 150)
+            engine.setProperty('voice', voiceout)
+            engine.save_to_file(text, 'static/result' + username + '.mp3')
+            engine.runAndWait()
+            result = "test"
+        elif "weather" and "today" in recognized:
+            text = l[45]
+            engine.setProperty('rate', 150)
+            engine.setProperty('voice', voiceout)
+            engine.save_to_file(text, 'static/result' + username + '.mp3')
+            engine.runAndWait()
+            result = "weather_today"
+    elif l == "de":
+        l = german
+        with sr.AudioFile(audiotranscribe) as source:
+            audio = r.record(source)
+        try:
+            recognized = r.recognize_google(audio, language="de-DE")
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand audio")
+            recognized = "fail"
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            recognized = "noconnection"
+        if "test" in recognized:
+            text = l[44]
+            engine.setProperty('rate', 150)
+            engine.setProperty('voice', voiceout)
+            engine.save_to_file(text, 'static/result' + username + '.mp3')
+            engine.runAndWait()
+            result = "test"
+        elif "wetter" and "heute" in recognized:
+            text = l[45]
+            engine.setProperty('rate', 150)
+            engine.setProperty('voice', voiceout)
+            engine.save_to_file(text, 'static/result' + username + '.mp3')
+            engine.runAndWait()
+            result = "weather_today"
 
     resultaudio = '/static/result'+username+'.mp3'
 
