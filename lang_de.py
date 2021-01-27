@@ -44,5 +44,6 @@ german = {
     43: 'Profil',
     44: 'Test erfolgreich',
     45: 'Das Wetter',
-    46: 'Test'
+    46: 'Test',
+    47: 'Registrierte Nutzer'
 }

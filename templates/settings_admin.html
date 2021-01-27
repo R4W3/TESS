@@ -1,17 +1,25 @@
 <div class="row">
-            <div class="col">
-                <div class="card" style="background-color: {{ element_color }};">
-                    <div class="card-body" style="color: {{ text_color }};">
-                        <h2>{{ l.31 }}</h2>
-                        <br>
-                        <div class="alert alert-danger" role="alert">
-                            {{ l.32 }} <a href="/documentation">here</a>.
-                        </div>
-                        <br>
-                        <a class="btn btn-primary" href="/add_user" role="button">
-                            <i class="fas fa-plus"></i>&nbsp;{{ l.33 }}
-                        </a>
-                    </div>
+    <div class="col-8">
+        <div class="card" style="background-color: {{ element_color }};">
+            <div class="card-body" style="color: {{ text_color }};">
+                <h2>{{ l.31 }}</h2>
+                <br>
+                <div class="alert alert-danger" role="alert">
+                    {{ l.32 }} <a href="/documentation">here</a>.
                 </div>
+                <br>
+                <a class="btn btn-primary" href="/add_user" role="button">
+                    <i class="fas fa-plus"></i>&nbsp;{{ l.33 }}
+                </a>
             </div>
-        </div><br>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card" style="background-color: {{ element_color }};">
+            <div class="card-body" style="color: {{ text_color }};">
+                <h2>{{ l.47 }}</h2>
+                <br>
+            </div>
+        </div>
+    </div>
+</div><br>
