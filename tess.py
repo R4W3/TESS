@@ -139,7 +139,24 @@ def index():
         accent_color = "#036016"
         accent2_color = '#16db65'
 
-    return render_template("page_index.html", l=l, client=client, username=username, role=role, bg_color=bg_color, element_color=element_color, text_color=text_color, accent_color=accent_color, accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size)
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor(dictionary=True)
+
+    mycursor.execute("SELECT user FROM userdata ")
+    users = {}
+    userlist = mycursor.fetchall()
+
+    for x in userlist:
+        print(x)
+
+    return render_template("page_index.html", l=l, client=client, username=username, role=role, bg_color=bg_color,
+                           element_color=element_color, text_color=text_color, accent_color=accent_color,
+                           accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size, userlist=userlist)
 
 
 @app.route("/weather_call")

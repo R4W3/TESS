@@ -6,15 +6,11 @@ mydb = mysql.connector.connect(
   database="tess"
 )
 
-mycursor = mydb.cursor()
+mycursor = mydb.cursor(dictionary=True)
 
 mycursor.execute("SELECT user FROM userdata ")
-
+users = {}
 myresult = mycursor.fetchall()
 
 for x in myresult:
-    final = list(x)
-
-    print(final)
-
-
+  print(x)
