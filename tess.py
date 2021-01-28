@@ -1,5 +1,6 @@
 from __future__ import print_function
 from flask import Flask, render_template, redirect, request, session, url_for
+from flask_compress import Compress
 import mysql.connector
 from lang_en import english
 from lang_de import german
@@ -9,6 +10,7 @@ import pyttsx3
 
 app = Flask(__name__)
 app.secret_key = "1gfh456fdg764poj5423ß0#+453"
+Compress(app)
 
 
 @app.route('/service-worker.js')
@@ -768,7 +770,6 @@ def voice():
             result = "settings"
 
     resultaudio = '/static/result'+username+'.mp3'
-
 
     return render_template("page_voice.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
                            text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,

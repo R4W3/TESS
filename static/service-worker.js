@@ -3,6 +3,11 @@ const CACHE_NAME = 'static-cache';
 const FILES_TO_CACHE = [
   '/static/css/materialize.css',
   '/static/offline.html',
+  '/static/js/bootstrap.bundle.js',
+  '/static/css/bootstrap.css',
+  '/static/js/app.js',
+  '/static/install.js',
+  '/static/js/standard.js',
 
 ];
 
