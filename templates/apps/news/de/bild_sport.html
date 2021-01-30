@@ -18,7 +18,10 @@ style="background-color: {{ bg_color }} ;"
         <i class="fas fa-arrow-left"></i>&nbsp;{{ l.57 }}
     </a>
     <br>
-    <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};"><i class="fas fa-newspaper"></i>&nbsp;{{ l.56 }}</h1>
+    <h1 style="color: {{ text_alt_color }}; font-size: {{ h1_size }};">
+        <i class="fas fa-newspaper"></i>&nbsp;{{ l.56 }}&nbsp;&nbsp;&nbsp;
+        <a onclick="playAudio('{{ url_for('static', filename='mp3/news/bild_sport.mp3') }}')"><i class="fas fa-volume-up"></i></a>
+    </h1>
     <br>
     <div class="row">
         {% for i in newsdict.values() %}
@@ -38,7 +41,11 @@ style="background-color: {{ bg_color }} ;"
     <br>
 </div>
 
-
+<script>
+    function playAudio(url) {
+      new Audio(url).play();
+    }
+</script>
 <script>
     $('#home').click(function(){
     $(location).attr('href', '/')

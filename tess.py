@@ -120,7 +120,6 @@ def index():
     myresult = mycursor.fetchall()
     for x in myresult:
         role = x[1]
-
     ua = str(request.user_agent)
     print(ua)
     if "iPhone" in ua:
@@ -153,13 +152,9 @@ def index():
         database="tess"
     )
     mycursor = mydb.cursor(dictionary=True)
-
     mycursor.execute("SELECT user FROM userdata ")
     users = {}
     userlist = mycursor.fetchall()
-
-    for x in userlist:
-        print(x)
 
     return render_template("page_index.html", l=l, client=client, username=username, role=role, bg_color=bg_color,
                            element_color=element_color, text_color=text_color, accent_color=accent_color,
@@ -896,6 +891,7 @@ def news_sport_bild():
     newsdict = {
 
     }
+    readOutLoud = ""
     while counter <= 10:
         newsdict[counter] = {}
         newsdict[counter]["title"] = d.entries[counter].title
@@ -903,12 +899,22 @@ def news_sport_bild():
         dtemp = d.entries[counter].description
         dtemp3 = re.sub('<[^<]+?>', '', dtemp)
         newsdict[counter]["description"] = dtemp3
+        readOutLoud += d.entries[counter].title+"\n"
         counter += 1
+    print(readOutLoud)
+    engine = pyttsx3.init()
+    voices = engine.getProperty('voices')
+    voiceout = voices[0].id
+    engine.setProperty('rate', 150)
+    engine.setProperty('voice', voiceout)
+    engine.save_to_file(readOutLoud, 'static/mp3/news/bild_sport.mp3')
+    engine.runAndWait()
+    newsaudio = 'mp3/news/bild_sport'+username+'.mp3'
 
     return render_template("/apps/news/de/bild_sport.html", l=l, client=client, username=username, bg_color=bg_color,
                            element_color=element_color, text_color=text_color, accent_color=accent_color,
                            accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size,
-                           newsdict=newsdict)
+                           newsdict=newsdict, newsaudio=newsaudio)
 
 
 
