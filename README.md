@@ -1,4 +1,17 @@
 # TESS
+## v.0.1.1<br><br>
+#### Admin
+Added link to docs in admin settings<br>
+Updated docs<br>
+Admin Settings now shows userlist<br><br>
+#### Features
+Newsreader introduced<br>
+Voice can now open Settings App<br><br>
+#### Fixes & Improvements
+Login Page improved<br>
+Added files to cache<br>
+Improved loadtimes<br>
+
 ## v.0.1.0
 Added voice input<br>
 Added voice recognition<br>
