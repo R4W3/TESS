@@ -46,5 +46,10 @@ english = {
     45: 'The weather',
     46: 'Test',
     47: 'Registered Users',
-    48: 'Here are your settings'
+    48: 'Here are your settings',
+    49: 'The News',
+    50: 'All',
+    51: 'Politics',
+    52: 'Economics',
+    53: 'Read Article'
 }

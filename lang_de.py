@@ -46,5 +46,10 @@ german = {
     45: 'Das Wetter',
     46: 'Test',
     47: 'Registrierte Nutzer',
-    48: 'Hier sind deine Einstellungen'
+    48: 'Hier sind deine Einstellungen',
+    49: 'Die Nachrichten',
+    50: 'Alle',
+    51: 'Politik',
+    52: 'Wirtschaft',
+    53: 'Artikel lesen'
 }

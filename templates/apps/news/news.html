@@ -1,0 +1,47 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if client == 'iPhone' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if client == 'Desktop' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+<div class="container">
+    <br>
+    <h1>{{ l.49 }}</h1>
+    <br>
+    <div class="col-sm-3">
+        <div class="card" style="background-color: transparent; border: 0px;">
+            <div class="card-body" style="background-color: #DC0000; border-radius: 15px;">
+                <h5 class="card-title" style="color: #fff">BILD.DE</h5>
+                <a href="/news/bild" class="btn" style="background-color: #fff;">{{ l.50 }}</a>
+                <a href="/news/bild/politik" class="btn" style="background-color: #fff;">{{ l.51 }}</a>
+                <a href="/news/bild/wirtschaft" class="btn" style="background-color: #fff;">{{ l.52 }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#home').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+{% endblock %}

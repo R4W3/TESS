@@ -1,0 +1,50 @@
+{% extends "base_logged_in.html" %}
+{% block head %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+style="background-color: {{ bg_color }} ;"
+{% endblock %}
+{% block content %}
+{% if client == 'iPhone' %}
+    {% include 'nav_mobile.html' %}
+{% endif %}
+{% if client == 'Desktop' %}
+    {% include 'nav_desktop.html' %}
+{% endif %}
+<br>
+<div class="container">
+    <div class="row">
+        {% for i in newsdict.values() %}
+        <div class="col-12">
+            <div class="card" style="background-color:transparent">
+                <div class="card-body" style="background-color: {{ element_color }}; color: {{ text_color }};">
+                    <h5 class="card-title">{{ i.title }}</h5>
+                    <p class="card-text">{{ i.description }}</p>
+                    <a href="{{ i.link }}" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i>&nbsp;{{ l.53 }}</a>
+                </div>
+            </div>
+        <br>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+</div>
+
+
+<script>
+    $('#home').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#settings').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+<script>
+    $('#profile').click(function(){
+    $(location).attr('href', '/')
+    });
+</script>
+{% endblock %}
