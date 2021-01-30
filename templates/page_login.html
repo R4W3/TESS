@@ -76,20 +76,19 @@
     <!-- Custom styles for this template -->
 
   </head>
-  <body class="text-center" cz-shortcut-listen="true">
+  <body class="text-center" cz-shortcut-listen="true" style="background-color: #121212">
 
 <main class="form-signin">
     <form action="/login" method="POST">
         <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">{{ l.3 }}, {{ l.16 }}</h1>
-        <label for="username" class="visually-hidden">{{ l.17 }}</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="{{ l.17 }}" required="" autofocus="">
+        <h1 class="h3 mb-3 fw-normal" style="color: #ff6161;">{{ l.3 }}, {{ l.16 }}</h1>
 
-        <label for="password" class="visually-hidden">{{ l.18 }}</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="{{ l.17 }}" required="" autofocus="">
+        <br>
         <input type="password" id="password" name="password" class="form-control" placeholder="{{ l.18 }}" required="">
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">© 2021 T.E.S.S. Technically Enhanced Smart System</p>
+        <button class="w-100 btn btn-lg" type="submit" style="background-color: #2a2a2a; color: #ff6161;">Sign in</button>
+        <p class="mt-5 mb-3" style="color: #ff6161;">© 2021 T.E.S.S. Technically Enhanced Smart System</p>
   </form>
 </main>
 
