@@ -19,10 +19,16 @@ style="background-color: {{ bg_color }} ;"
     <div class="col-sm-3">
         <div class="card" style="background-color: transparent; border: 0px;">
             <div class="card-body" style="background-color: #DC0000; border-radius: 15px;">
-                <h5 class="card-title" style="color: #fff">BILD.DE</h5>
-                <a href="/news/bild" class="btn" style="background-color: #fff;">{{ l.50 }}</a>
-                <a href="/news/bild/politik" class="btn" style="background-color: #fff;">{{ l.51 }}</a>
-                <a href="/news/bild/wirtschaft" class="btn" style="background-color: #fff;">{{ l.52 }}</a>
+                <img width="80vh" height="80vh" src="{{ url_for('static', filename='images/news/bild.png') }}" alt="BILD Logo">
+                <br><br>
+                <div class="row">
+                    <div class="col">
+                        <a href="/news/bild" class="btn" style="background-color: #fff;">{{ l.50 }}</a>
+                        <a href="/news/bild/politik" class="btn" style="background-color: #fff;">{{ l.51 }}</a>
+                        <a href="/news/bild/sport" class="btn" style="background-color: #fff;">{{ l.52 }}</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

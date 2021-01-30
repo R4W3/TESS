@@ -42,7 +42,20 @@ def login():
         account = cursor.fetchone()
 
         if account:
+            db = mysql.connector.connect(
+                host=db_host,
+                user=db_user,
+                password=db_pass,
+                database="tess"
+            )
+            mycursor = db.cursor()
+            sql = "SELECT * FROM " + username + " WHERE setting ='language'"
+            mycursor.execute(sql)
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                l = x[1]
             session["user"] = username
+            session["language"] = l
             return redirect("/", code=302)
         else:
             return redirect("/login")
@@ -54,6 +67,7 @@ def login():
 @app.route("/logout")
 def logout():
     session.pop("user", None)
+    session.pop("language", None)
     return redirect("/login")
 
 
@@ -64,6 +78,11 @@ def index():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     if request.method == 'POST':
         f = request.files['audio_data']
         print(f)
@@ -77,22 +96,6 @@ def index():
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -170,27 +173,16 @@ def weather():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -266,6 +258,7 @@ def settings():
         mycursor.execute(sql)
         mydb.commit()
         print(mycursor.rowcount, "record(s) affected")
+        session["language"] = new_language
         return redirect("/")
 
 
@@ -276,27 +269,16 @@ def lights():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -344,27 +326,16 @@ def docs():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -463,27 +434,16 @@ def new_user():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -525,102 +485,6 @@ def new_user():
                            text_alt_color=text_alt_color, h1_size=h1_size, client=client)
 
 
-@app.route("/todo")
-def todo():
-    if "user" in session:
-        pass
-    else:
-        return redirect("/login", code=302)
-    username = session["user"]
-    f = open("various/db.txt", "r")
-    db_user = f.readline().rstrip("\n")
-    db_pass = f.readline().rstrip("\n")
-    db_host = f.readline().rstrip("\n")
-    f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
-    mydb = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = mydb.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        theme = x[1]
-    ua = str(request.user_agent)
-    print(ua)
-    if "iPhone" in ua:
-        h1_size = "calc(1.375rem + 3vw)"
-        client = "iPhone"
-    else:
-        h1_size = "calc(1.375rem + 1.5vw)"
-        client = "Desktop"
-
-    if theme == "dark":
-        bg_color = "#020202"
-        element_color = "#4F4B58"
-        text_color = "#C5CBD3"
-        text_alt_color = "#C5CBD3"
-        accent_color = "#036016"
-        accent2_color = '#16db65'
-
-    else:
-        bg_color = "#C5CBD3"
-        element_color = "#4F4B58"
-        text_color = "#fff"
-        text_alt_color = "#020202"
-        accent_color = "#036016"
-        accent2_color = '#16db65'
-    db_db = username+"_todo"
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database=db_db
-    )
-    mycursor = db.cursor()
-    mycursor.execute("SHOW TABLES")
-
-    for x in mycursor:
-        print(x)
-        tables = list(x)
-    for item in tables:
-        db_db = username + "_todo"
-        db = mysql.connector.connect(
-            host=db_host,
-            user=db_user,
-            password=db_pass,
-            database=db_db
-        )
-        mycursor = db.cursor()
-        mycursor.execute("SELECT * FROM "+item+"")
-        for y in myresult:
-            print(y)
-            items = list(y)
-
-    return render_template("page_todo.html", username=username, l=l, bg_color=bg_color, element_color=element_color,
-                           text_color=text_color, accent_color=accent_color, accent2_color=accent2_color,
-                           text_alt_color=text_alt_color, h1_size=h1_size, client=client, tables=tables, items=items)
-
-
 @app.route("/voice")
 def voice():
     if "user" in session:
@@ -628,30 +492,20 @@ def voice():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     engine = pyttsx3.init()
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    voices = engine.getProperty('voices')
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
+    if l == english:
         voiceout = voices[1].id
-    if l == "de":
-        l = german
+    if l == german:
         voiceout = voices[0].id
     mydb = mysql.connector.connect(
         host=db_host,
@@ -786,27 +640,16 @@ def news():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -856,27 +699,16 @@ def news_bild():
     else:
         return redirect("/login", code=302)
     username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
     f = open("various/db.txt", "r")
     db_user = f.readline().rstrip("\n")
     db_pass = f.readline().rstrip("\n")
     db_host = f.readline().rstrip("\n")
     f.close()
-    db = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database="tess"
-    )
-    mycursor = db.cursor()
-    sql = "SELECT * FROM " + username + " WHERE setting ='language'"
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-        l = x[1]
-    if l == "en":
-        l = english
-    if l == "de":
-        l = german
     mydb = mysql.connector.connect(
         host=db_host,
         user=db_user,
@@ -924,12 +756,156 @@ def news_bild():
         newsdict[counter]["link"] = d.entries[counter].link
         dtemp = d.entries[counter].description
         dtemp3 = re.sub('<[^<]+?>', '', dtemp)
-
         newsdict[counter]["description"] = dtemp3
         counter += 1
 
-    print(newsdict[0]["description"])
     return render_template("/apps/news/de/bild.html", l=l, client=client, username=username, bg_color=bg_color,
+                           element_color=element_color, text_color=text_color, accent_color=accent_color,
+                           accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size,
+                           newsdict=newsdict)
+
+
+@app.route("/news/bild/politik")
+def news_politik_bild():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+        client = "iPhone"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+        client = "Desktop"
+
+    if theme == "dark":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+    d = feedparser.parse('https://www.bild.de/rss-feeds/rss-16725492,feed=politik.bild.html')
+    counter = 0
+    newsdict = {
+
+    }
+    while counter <= 10:
+        newsdict[counter] = {}
+        newsdict[counter]["title"] = d.entries[counter].title
+        newsdict[counter]["link"] = d.entries[counter].link
+        dtemp = d.entries[counter].description
+        dtemp3 = re.sub('<[^<]+?>', '', dtemp)
+        newsdict[counter]["description"] = dtemp3
+        counter += 1
+
+    return render_template("/apps/news/de/bild_politik.html", l=l, client=client, username=username, bg_color=bg_color,
+                           element_color=element_color, text_color=text_color, accent_color=accent_color,
+                           accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size,
+                           newsdict=newsdict)
+
+
+@app.route("/news/bild/sport")
+def news_sport_bild():
+    if "user" in session:
+        pass
+    else:
+        return redirect("/login", code=302)
+    username = session["user"]
+    l = session["language"]
+    if l == "en":
+        l = english
+    if l == "de":
+        l = german
+    f = open("various/db.txt", "r")
+    db_user = f.readline().rstrip("\n")
+    db_pass = f.readline().rstrip("\n")
+    db_host = f.readline().rstrip("\n")
+    f.close()
+    mydb = mysql.connector.connect(
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database="tess"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM " + username + " WHERE setting ='theme'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        theme = x[1]
+    ua = str(request.user_agent)
+    print(ua)
+    if "iPhone" in ua:
+        h1_size = "calc(1.375rem + 3vw)"
+        client = "iPhone"
+    else:
+        h1_size = "calc(1.375rem + 1.5vw)"
+        client = "Desktop"
+
+    if theme == "dark":
+        bg_color = "#020202"
+        element_color = "#4F4B58"
+        text_color = "#C5CBD3"
+        text_alt_color = "#C5CBD3"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+
+    else:
+        bg_color = "#C5CBD3"
+        element_color = "#4F4B58"
+        text_color = "#fff"
+        text_alt_color = "#020202"
+        accent_color = "#036016"
+        accent2_color = '#16db65'
+    d = feedparser.parse('https://www.bild.de/rss-feeds/rss-16725492,feed=sport.bild.html')
+    counter = 0
+    newsdict = {
+
+    }
+    while counter <= 10:
+        newsdict[counter] = {}
+        newsdict[counter]["title"] = d.entries[counter].title
+        newsdict[counter]["link"] = d.entries[counter].link
+        dtemp = d.entries[counter].description
+        dtemp3 = re.sub('<[^<]+?>', '', dtemp)
+        newsdict[counter]["description"] = dtemp3
+        counter += 1
+
+    return render_template("/apps/news/de/bild_sport.html", l=l, client=client, username=username, bg_color=bg_color,
                            element_color=element_color, text_color=text_color, accent_color=accent_color,
                            accent2_color=accent2_color, text_alt_color=text_alt_color, h1_size=h1_size,
                            newsdict=newsdict)

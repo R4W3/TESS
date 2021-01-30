@@ -50,6 +50,10 @@ german = {
     49: 'Die Nachrichten',
     50: 'Alle',
     51: 'Politik',
-    52: 'Wirtschaft',
-    53: 'Artikel lesen'
+    52: 'Sport',
+    53: 'Artikel lesen',
+    54: 'BILD.de - Alle Nachrichten',
+    55: 'BILD.de - Politik',
+    56: 'BILD.de - Sport',
+    57: 'Zurück zur Auswahl'
 }

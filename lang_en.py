@@ -50,6 +50,10 @@ english = {
     49: 'The News',
     50: 'All',
     51: 'Politics',
-    52: 'Economics',
-    53: 'Read Article'
+    52: 'Sports',
+    53: 'Read Article',
+    54: 'BILD.de - All news',
+    55: 'BILD.de - Politics',
+    56: 'BILD.de - Sports',
+    57: 'Back to portal'
 }
